@@ -60,7 +60,8 @@
 #
 # GNU gcc
 #
-CC = gcc -mv8 -static
+CC = /home/yushan/simplescalar/bin/sslittle-na-sstrix-gcc -static
+#CC = gcc -static
 CFLAGS = -O2 $(USE_DISP) $(USE_SHMEM) $(INCLUDEDIR) $(TRACE) $(VERBOSE) $(VERIFY) $(WARNINGS)
 
 OBJ = mpeg2dec.o getpic.o motion.o getvlc.o gethdr.o getblk.o getbits.o store.o recon.o spatscal.o idct.o idctref.o display.o systems.o subspic.o verify.o
@@ -77,7 +78,8 @@ mpeg2dec.exe: mpeg2decode
 	coff2exe mpeg2dec
 
 mpeg2decode: $(OBJ)
-	$(CC) $(CFLAGS) $(LIBRARYDIR) -o mpeg2decode $(OBJ) -lm $(LIBS)
+#	$(CC) $(CFLAGS) $(LIBRARYDIR) -o mpeg2decode $(OBJ) -lm $(LIBS)
+	$(CC) $(CFLAGS) $(LIBRARYDIR) -o mpeg2decode $(OBJ)
 
 display.o : display.c config.h global.h mpeg2dec.h 
 getbits.o : getbits.c config.h global.h mpeg2dec.h 
