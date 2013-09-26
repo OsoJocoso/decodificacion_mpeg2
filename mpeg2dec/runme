@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SS="/home/yushan/simplescalar"
+WATTCH="/home/yushan/wattch/sim-wattch-1.02d"
+
+CC="$SS/bin/sslittle-na-sstrix-gcc -static"	#FIXME - did not add -mv8
+CFLAGS="-O2"
+SIM="$WATTCH/sim-outorder"
+FILES="mpeg2dec.c getpic.c motion.c getvlc.c gethdr.c getblk.c getbits.c store.c recon.c spatscal.c idct.c idctref.c display.c systems.c subspic.c verify.c"
+OBJ=mpeg2decode
+
+#clean
+if [ -e $OBJ ]; then
+   /bin/rm $OBJ 
+fi
+
+#Compile
+$CC $CFLAGS $FILES -o $OBJ
+
+#Execute sim
+$SIM $OBJ
+
+exit 0
