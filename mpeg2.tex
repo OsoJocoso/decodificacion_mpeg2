@@ -48,9 +48,22 @@ An\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de r
 
 \subsection{Simulaciones a realizar}
 C\'{a}lculo de la cantidad total de simulaciones a realizar.
+Las simulaciones preliminares nos dan un estimado de 279 segundos para correr cada simulaci\'{o}n, \
+lo cual corresponde aproximadamente a 4 minutos.  En un lapso de 45 minutos teoricamente se pueden correr alrededor de 11 simulaciones.
+
 
 \subsection{Funci\'{o}n Costo}
 Definici\'{o}n de la funci\'{o}n costo.
+Debido al uso tan extenso que se hace de la codificaci\'{o}n/decodificaci\'{o}n MPEG2, se opta por\
+definir nuestra funci\'{o}n de costo en base al rendimiento del chip asi como la energ\'{i}a \
+consumida por el mismo, ya que nos parece son los par\'{a}metros que se deber\'{i}an de maximisar para\
+esta aplicaci\'{o}n.  El rendimiento es necesario para permitir una decodificaci\'{o}n r\'{a}pida y \
+eficiente, la energ\'{i}a es importante por motivos del costo de consumo de la misma para \
+realizar las decodificaciones.
+
+Funci\'{o} de costo:     F(x) = P(x) * D(x)
+P(x) = Potencia de x (Potencia total consumida por el chip)
+D(x) = Rendimiento IPC del codigo.
 
 \subsection{Resultados}
 Resultados obtenidos.
