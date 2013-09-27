@@ -1,6 +1,6 @@
 #!/bin/sh -f
 NAME=mpeg2decode
-WATTCH_BIN=/home/yushan/wattch/sim-wattch-1.02d/sim-outorder
+WATTCH_BIN=$(HOME)/wattch/sim-wattch-1.02d/sim-outorder
 BENCH_BIN=../bin/${NAME}
 BENCH_OPT="-r -f -o0"
 BENCH_INP="-b ../data/mei16v2.m2v"

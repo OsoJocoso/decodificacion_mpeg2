@@ -60,7 +60,7 @@
 #
 # GNU gcc
 #
-CC = /home/yushan/simplescalar/bin/sslittle-na-sstrix-gcc -static
+CC = $(HOME)/simplescalar/bin/sslittle-na-sstrix-gcc -static
 #CC = gcc -static
 CFLAGS = -O2 $(USE_DISP) $(USE_SHMEM) $(INCLUDEDIR) $(TRACE) $(VERBOSE) $(VERIFY) $(WARNINGS)
 
