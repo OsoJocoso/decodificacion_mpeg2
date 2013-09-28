@@ -12,7 +12,7 @@
 \begin{document}
 %
 % paper title
-\title{Decodificaci\'{o}n MPEG2}
+\title{Benchmark Decodificaci\'{o}n MPEG2}
 \author{Alberto~Suarez,~\IEEEmembership{Ingeniero,~Hewlett~Packard,}
         Yu~Shan~Hsieh,~\IEEEmembership{Ingeniero,~Hewlett~Packard}% <-this % stops a space
 \thanks{}% <-this % stops a space
@@ -22,7 +22,8 @@
 
 % in the abstract or keywords.
 \begin{abstract}
-Art\'{i}culo cient\'{i}fico sobre benchmarking en la decodificaci\'{o}n de mpeg2.
+El tama\~no f\'isico de las RUUs tienen mucho impacto sobre el desempe\~no. Si se utiliza un RUU relativamente peque\~no el CPI puede verse afectado negativamente produciendo un pobre resultado de funci\'on costo, perdiendo as\'i, la leve
+mejora en consumo de potencia que pudo haber obtenido.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -50,7 +51,67 @@ an\'{a}lisis de resultados y finalmente las conclusiones que se pueden derivar d
 \section{Metodolog\'{i}a de optimizaci\'{o}n}
 
 \subsection{Descripci\'{o}n del benchmark}
+El decodificador de mpeg2 viene como parte de un set de benchmarks en el archivo comprimido \textit{mediabench.tar.gz}. Al descomprimir el archivo, se va a encontrar el directorio \textit{mpeg2}. Este es un benchmark que trabaja tanto la parte de codificaci\'{o}n (encode) como la de decodificaci\'{o}n. En nuestro caso, solo vamos a trabajar la parte de decode port lo que podemos ignorar todo lo relacionado con encode.
 
+Dentro del directorio principal podemos encontrar los siguientes directorios que valen la pena mencionar \newline
+
+\begin{itemize}
+\item \textbf{src/mpeg2dec}. Contiene el codigo en C del decodificador y el Makefile.
+\item \textbf{bin/}. Contiene los binarios creados por el Makefile.
+\item \textbf{exec/}. Contiene scripts con demostraciones sencillas. Utiliza los binarios localizados en \textit{bin/}.
+\item \textbf{data/}. Contiene los archivos temporales creados y utilizados por los scripts de prueba.
+\end{itemize}
+
+Dentro del directorio de src/mpeg2dec se encuentra el codigo en C del decoder junto con el Makefile. El archivo principal es mpeg2dec.c y est\'{a} compuesto por las siguientes funciones principales:
+
+\footnotesize \begin{verbatim}
+static void Initialize_Decoder _ANSI_ARGS_((void));
+static int Decode_Bitstream _ANSI_ARGS_((void));
+\end{verbatim}
+\normalsize
+
+La funci\'{o}n de \textit{Decode\_Bitstream} llama a la funci\'{o}n video\_sequence() que se encarga de ir por cada imagen y decodificarlo. \newline
+
+Para ejecutar una demostración, realize los siguientes pasos: \newline
+
+\footnotesize \begin{verbatim}
+1) Descomprima el benchmark
+   >tar xvzf mediabench.tar.gz
+
+2) Hacer Make 
+   >cd mediabench/mpeg2/src/mpeg2dec
+   >make
+
+3) Correr sim
+   >cd ../../exec/
+   >./mpeg2decode.sh
+
+\end{verbatim}
+\normalsize
+
+\footnotesize
+*Nota: Hay que editar el Makefile y remover la bandera de "-mv8" que viene en la l\'{i}nea de CC. Esta opci\'on ya no es soportado por GCC. \newline
+\normalsize
+
+Al ejecutar el script, se deber\'{i}a ver las siguiente l\'{i}neas en la pantalla:
+
+\footnotesize \begin{verbatim}
+saving ../data/tmp0.Y
+saving ../data/tmp0.U
+saving ../data/tmp0.V
+saving ../data/tmp1.Y
+saving ../data/tmp1.U
+saving ../data/tmp1.V
+saving ../data/tmp2.Y
+saving ../data/tmp2.U
+saving ../data/tmp2.V
+saving ../data/tmp3.Y
+saving ../data/tmp3.U
+saving ../data/tmp3.V
+\end{verbatim}
+\normalsize
+
+Con esto, se logra comprobar que el benchmark funciona correctamente.
 
 \subsection{Herramientas}
 
@@ -71,17 +132,18 @@ Wattch\cite{WATTCH} es un simulador que estima la potencia consumida de un CPU y
 \subsubsection{GCC}
 GNU Compiler Collection o GNU C Compiler es un compilador de C para sistemas operativos GNU. \newline
 
-\subsubsection{Mpeg2 decoder}
-El decodificador viene en un suite que trabaja tanto la parte de codificaci\'{o}n (encode) como la de decodificaci\'{o}n. En nuestro caso, solo vamos a trabajar la parte de decode.
-Dentro del directorio de src/mpeg2dec se encuentra el codigo en C del decoder junto con el Makefile. El archivo principal es mpeg2dec.c y est\'{a} compuesto por las siguientes funciones principales:
+\subsubsection{MPEG2}
+Moving Pictures Experts Group 2 (MPEG-2)\cite{MPEG2}, es la designaci\'on para un grupo de est\'andares de codificaci\'on de audio y vídeo acordado por MPEG. MPEG-2 es por lo general usado para codificar audio y video para se\~nales de transmisi\'on, que incluyen televisi\'on digital terrestre, por sat\'elite o cable. Este formato tambi\'en es muy com\'un como formato de codificación usado por los discos SVCD y DVD comerciales de películas.
 
-\footnotesize \begin{verbatim}
-static void Initialize_Decoder _ANSI_ARGS_((void));
-static int Decode_Bitstream _ANSI_ARGS_((void));
-\end{verbatim}
-\normalsize
+El algoritmo de compresi\'on general MPEG consiste en aplicar los siguientes pasos\cite{F_MPEG2} \newline
 
-La funci\'{o}n de \textit{Decode\_Bitstream} llama a la funci\'{o}n video\_sequence() que se encarga de ir por cada imagen y decodificarlo. \newline
+\begin{enumerate}
+\item \textbf{Transformaci\'on}. Convierte los datos de entrada en estructuras que permiten ser comprimidos.
+\item \textbf{Cuantizaci\'on}. Reduce el n\'umero de s\'imbolos para representar un dato.
+\item \textbf{Codificaci\'on de s\'imbolos}. Minimiza la longitud de los s\'imbolos requeridos para representar el dato. \newline
+\end{enumerate}
+
+El MPEG-2 permite resoluciones m\'as altas y data rates mayores que MPEG-1.
 
 \subsection{Configuraci\'{o}n}
 En esta secci\'{o}n se va a hace un an\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
@@ -105,7 +167,8 @@ realizar las decodificaciones.
 
 \footnotesize \begin{verbatim}
 Funcion de costo:     F(x) = P(x) * D(x)
-P(x) = Potencia de x (Potencia total consumida por el chip)
+P(x) = Potencia de x (Potencia total consumida 
+por el chip)
 D(x) = Rendimiento IPC del codigo.
 \end{verbatim}
 \normalsize
@@ -148,6 +211,7 @@ nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van
 A continuaci\'{o}n se muestra las pruebas y su configuracion: \newline
 
 Configuraci\'on base:
+\footnotesize \begin{verbatim}
 bpred           comb
 ruu:size        16
 lsq:size        8
@@ -159,6 +223,10 @@ res:ialu        4
 res:imult       1
 res:fpalu       1
 res:fpmult      1
+\end{verbatim}
+\normalsize
+
+Detalles de los tests: \newline
 
 \begin{enumerate}
 \item \textbf{Test 1}.  bpredm=comb, lsq=8, ruu=16, cache=lfu
@@ -175,9 +243,11 @@ res:fpmult      1
 \item \textbf{Test 12}. bpredm=2lev, lsq=16, ruu=32, cache=fifo \newline
 \end{enumerate}
 
-Las simulaciones se lanzan con el script \textit{./run\_benchmark.sh} que llama a Wattch junto con el binario cross-compilado de Simplescalar.
+Antes de lanzar las simulaciones, es impotante notar que se requiere volver a make de los binarios (mpeg2decode) haciendo una compilaci\'on cruzada con \textit{simplescalar/bin/sslittle-na-sstrix-gcc}. Esto se logra editando
+el Makefile dentro de \textit{src/mpeg2dec/} y cambiar el CC\footnote{Es necesario remover el flag -lm}.
+Para lanzar las simulaciones, se ejecuta el script \textit{./run\_benchmark.sh} en el directorio \textit{src/mpeg2dec/}. Este script se encarga de llamar a Wattch junto con el binario cross-compilado de Simplescalar.
 
-\subsection{Resultados}
+\subsection{Resultados y An\'alisis}
 
 \begin{figure}[!ht]
         \begin{center}
@@ -200,7 +270,6 @@ Las simulaciones se lanzan con el script \textit{./run\_benchmark.sh} que llama 
         \end{center}
 \end{figure}
 
-\subsection{An\'{a}lisis de Resultados}
 A partir de los resultados se observa que al reducir el tama\~{n}o de la RUU se obtiene mejor potencia total (m\'{a}s baja). Esto es de imaginar ya que el algoritmo de decodificaci\'{o}n de mpeg2 hace bastante uso de de buffers y de operaciones en registros. Al mismo tiempo, al reducir la RUU de 32 a 16, aumenta la cantidad de ciclos necesarios para ejecutar una instrucci\'{o}n (CPI). Noten que este aumento en la CPI
 tiene mayor peso sobre la funci\'{o}n costo que la potencia reducida. En otras palabras, la mejora que se obtuvo en potencia no fue lo suficiente para compensar el incremento en la CPI. Al incrementar la CPI se incrementa tambi\'{e}n
 el tiempo de ejecuci\'{o}n del programa lo cual no es deseable.
@@ -208,15 +277,18 @@ el tiempo de ejecuci\'{o}n del programa lo cual no es deseable.
 El segundo factor que mas influenci\'{o} fue el modo del Branch Predictor, y las variables utilizadas son \textit{2Lev} y \textit{comb} con el \'{u}ltimo siendo el m\'{e}todo por default del compilador. Note con el m\'{e}todo \textit{comb} se produce
 mejores tasas de CPI de forma consistente en comparaci\'{o}n con \textit{2Lev}.
 
-Los cambios en la estrategia de reemplazo de los bloques de la cache y el tamaño del queue de LoadStore no aportan variaciones significativas de la funci\'{o}n costo aunque se observa una ligera mejora en la CPI al utilizar LFU en comparaci\'{o}n con utilizar FIFO. Esto se debe a que el c\'{o}digo hace un uso intensivo de la memoria y las acciones realizadas con estos datos permiten calendarizar otras operaciones entre lecturas de memoria.
+Los cambios en la estrategia de reemplazo de los bloques de la cache y el tama\~no del queue de LoadStore no aportan variaciones significativas de la funci\'{o}n costo aunque se observa una ligera mejora en la CPI al utilizar LFU en comparaci\'{o}n con utilizar FIFO. Esto se debe a que el c\'{o}digo hace un uso intensivo de la memoria y las acciones realizadas con estos datos permiten calendarizar otras operaciones entre lecturas de memoria.
 
 
 \section{Conclusiones}
-El par\'ametro de arquitectura mas significativo es el RUU.
+El tama\~no f\'isico de las RUUs tienen mucho impacto sobre el desempe\~no. Si el RUU es relativamente peque\~no el CPI se va a verse impactado negativamente produciendo un pobre resultado de funci\'on costo, eclipsando
+mejora en consumo de potencia que pudo haber traer el reducir el tama\~no de las RUUs.
 
-El segundo par\'ametro encontrado con mayor incidencia es el modo del branch predictor.
+El branch predictor tiene un peque\~no impacto en el CPI y en la funci\'on costo. Se encontr\'o que el tipo de predicci\'on \textit{comb} tiene mejor desempe\~no que \textit{2lev}. \newline
 
-Configuraci\'on \'optima:
+Configuraci\'on \'optima: \newline
+
+\footnotesize \begin{verbatim}
 bpred           comb
 ruu:size        32
 lsq:size        8
@@ -228,7 +300,8 @@ res:ialu        4
 res:imult       1
 res:fpalu       1
 res:fpmult      1
-
+\end{verbatim}
+\normalsize
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
@@ -243,18 +316,14 @@ Simplescalar LLC, http://www.simplescalar.com/, 2395 Timbercrest Court Ann Arbor
 \bibitem{WATTCH}
 Wattch, http://www.eecs.harvard.edu/~dbrooks/wattch-form.html, Version 1.02d.
 
+\bibitem{MPEG2}
+"MPEG-2", "http://en.wikipedia.org/wiki/MPEG-2", Wikipedia.
+
+\bibitem{F_MPEG2}
+Haitzler, Carsten; Webber, Nicholas, "MPEG(2) Encoding \& Decoding, "http://www.fst.net/resources/papers/Introduction+to+MPEG
++Encoding+and+Decoding.pdf",Fluffy Spider Technologies Pty Ltd,Suite 87,330 Wattle Street,Ultimo NSW, 2007
+
 \end{thebibliography}
-
-\begin{IEEEbiographynophoto}{Alberto Suarez}
-Licenciatura en Ingenier\'ia electr\'onica, ITCR
-Ingeniero Electr\'{o}nico, Hewlett Packard
-\end{IEEEbiographynophoto}
-
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{Yu Shan Hsieh}
-Bachillerato en Ingenier\'{i}a El\'{e}ctrica, UCR
-Ingeniero Electr\'{o}nico, Hewlett Packard
-\end{IEEEbiographynophoto}
 
 \end{document}
 
