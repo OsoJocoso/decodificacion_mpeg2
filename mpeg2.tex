@@ -31,8 +31,18 @@ Decodificaci\'{o}n, mpeg2, Benchmark
 \end{IEEEkeywords}
 
 \section{Introducci\'{o}n}
-\IEEEPARstart{E}{l} prop\'{o}sito de este paper es analizar varios aspectos de rendimiento que tiene un programa de decodificaci\'{o}n de mpeg2 tales como consumo de potencia, desempe\~{n}o de la CPU, tiempo de ejecuci\'{o}n, etc. 
-Para poder hablar sobre esos aspectos, es importante primero entender qu\'{e} es la decodificaci\'{o}n de mpeg2 y c\'{o}mo se realiza. Para esto se analizar\'{a} los c\'{o}digos fuentes que  Posteriormente se detallar\'{a} las pruebas que se van a realizar y el testbench sobre la cual se realizar\'{a} las pruebas. Luego que har\'{a} el an\'{a}lisis de resultados y finalmente las conclusiones que se pueden derivar de estos experimentos.
+\IEEEPARstart{E}{l} prop\'{o}sito de este paper es benchmark sobre un programa de decodificaci\'{o}n \
+de mpeg2, para este prop\'osito se va a analizar el mismo para crear una configuraci\'on inicial de \
+Hardware para ser utilizada como referencia a la hora de correr el benchmark. Las posibles variables \
+o parametros a variar en el benchmark son consumo de potencia, desempe\~{n}o de la CPU, tiempo de ejecuci\'{o}n, etc. 
+Se realizar\'a una corrida premilimar del codigo para determinar el tiempo requerido para que se \
+ejecute una iteraci\'on del c\'odigo, a partir del cua\'al se calcular\'a la cantidad de iteraciones \
+que se pueden correr en un lapso sugerido de 45 minutos. \newline  Nos vamos a basar en la cantidad \
+calculada de iteraciones para determinar la cantidad de par\'ametros a controlar a la hora de correr \
+el testbench. Posteriormente de detallar\'{a} las pruebas que se van a realizar, se proceder\'a a \
+correr el benchmark, para lo cual se va a utilizar un script que lo ejecute con los par\'ametros \
+seleccionados y recolecte los datos pertinentes para su posterior an\'alisis. Luego se har\'{a} el \
+an\'{a}lisis de resultados y finalmente las conclusiones que se pueden derivar de estos experimentos.
 
 
 \hfill Setiembre 27, 2013
@@ -40,6 +50,7 @@ Para poder hablar sobre esos aspectos, es importante primero entender qu\'{e} es
 \section{Metodolog\'{i}a de optimizaci\'{o}n}
 
 \subsection{Descripci\'{o}n del benchmark}
+
 
 \subsection{Herramientas}
 
@@ -55,7 +66,7 @@ y con predicci\'{o}n de saltos. Simplescalar soporta set de instrucciones tipo P
 \end{itemize}
 
 \subsubsection{Wattch}
-Wattch\cite{WATTCH} es un simulador que estima la potencia consumida de un CPU. Tiene modelos de potencia integrados en Simplescalar y utiliza una version modificada de sim-outorder de Simplescalar para recolectar resultados. \newline
+Wattch\cite{WATTCH} es un simulador que estima la potencia consumida de un CPU y otros datos tales como rendimiento de las memorias cache (hits, misses, etc), branch predictors entre otros. Tiene modelos de potencia integrados en Simplescalar y utiliza una version modificada de sim-outorder de Simplescalar para recolectar resultados. \newline
 
 \subsubsection{GCC}
 GNU Compiler Collection o GNU C Compiler es un compilador de C para sistemas operativos GNU. \newline
@@ -182,16 +193,24 @@ mejores tasas de CPI de forma consistente en comparaci\'{o}n con \textit{2Lev}.
 Los cambios en la estrategia de reemplazo de los bloques de la cache y el tamaño del queue de LoadStore no aportan variaciones significativas de la funci\'{o}n costo aunque se observa una ligera mejora en la CPI al utilizar LFU en comparaci\'{o}n con utilizar FIFO. Esto se debe a que el c\'{o}digo hace un uso intensivo de la memoria y las acciones realizadas con estos datos permiten calendarizar otras operaciones entre lecturas de memoria.
 
 
+\section{Conclusiones}
+El par\'ametro de arquitectura mas significativo es el RUU.
+
+El segundo par\'ametro encontrado con mayor incidencia es el modo del branch predictor.
+
 Configuraci\'on optima:
-bpred:comb
-ruu:size
-lsq:size
+bpred           comb
+ruu:size        32
+lsq:size        8
 cache:dl1       dl1:128:32:4:l
 cache:dl2       ul2:1024:64:4:l
 cache:il1       il1:512:32:1:l
+cache:il2       dl2
+res:ialu        4
+res:imult       1
+res:fpalu       1
+res:fpmult      1
 
-\section{Conclusiones}
-Conclusiones.
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
@@ -209,6 +228,7 @@ Wattch, http://www.eecs.harvard.edu/~dbrooks/wattch-form.html, Version 1.02d.
 \end{thebibliography}
 
 \begin{IEEEbiographynophoto}{Alberto Suarez}
+Licenciatura en Ingenier\'ia electr\'onica, ITCR
 Ingeniero Electr\'{o}nico, Hewlett Packard
 \end{IEEEbiographynophoto}
 
