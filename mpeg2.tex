@@ -15,7 +15,7 @@
 \title{Decodificaci\'{o}n MPEG2}
 \author{Alberto~Suarez,~\IEEEmembership{Ingeniero,~Hewlett~Packard,}
         Yu~Shan~Hsieh,~\IEEEmembership{Ingeniero,~Hewlett~Packard}% <-this % stops a space
-\thanks{Cristina Murillo, ITCR}% <-this % stops a space
+\thanks{}% <-this % stops a space
 }
 % make the title area
 \maketitle
@@ -31,17 +31,46 @@ Decodificaci\'{o}n, mpeg2, Benchmark
 \end{IEEEkeywords}
 
 \section{Introducci\'{o}n}
-\IEEEPARstart{E}{ste} documento va a hablar sobre el benchmarking de la decodificaci\'{o}n de mpeg2.
+\IEEEPARstart{E}{l} prop\'{o}sito de este paper es analizar varios aspectos de rendimiento que tiene un programa de decodificaci\'{o}n de mpeg2 tales como consumo de potencia, desempeño de la CPU, tiempo de ejecuci\'{o}n, etc. 
+Para poder hablar sobre esos aspectos, es importante primero entender qu\'{e} es la decodificaci\'{o}n de mpeg2 y c\'{o}mo se realiza. Para esto se analizar\'{a} los c\'{o}digos fuentes que  Posteriormente se detallar\'{a} las pruebas que se van a realizar y el testbench sobre la cual se realizar\'{a} las pruebas. Luego que har\'{a} el an\'{a}lisis de resultados y finalmente las conclusiones que se pueden derivar de estos experimentos.
+
 
 \hfill Setiembre 27, 2013
 
 \section{Metodolog\'{i}a de optimizaci\'{o}n}
 
 \subsection{Descripci\'{o}n del benchmark}
-Descripci\'{o}n del benchmark
 
 \subsection{Herramientas}
-Herramientas utilizadas para la simulaci\'{o}n.
+
+\subsubsection{Simplescalar}
+Simplescalar\cite{SIMPLESCALAR} es un simulador de arquitectura de computadoras Open Source escrito en C. Este simulador contiene una serie de herramientas que modela un sistema computador virtual con CPU, cache y jerarqu\'{i}as de memoria.
+Utilizando Simplescalar, el usuario puede modelar lo que ocurre cuando un programa corre sobre una variedad de arquitecturas desde procesadores sencillos hasta procesadores con scheduling din\'{a}mico, cache no-bloqueante
+y con predicci\'{o}n de saltos. Simplescalar soporta set de instrucciones tipo PISA y se compone de tres herramientas principales: \newline
+
+\begin{itemize}
+\item \textbf{simplesim} Simulador Simplescalar.
+\item \textbf{simpletools} Compilador GNU GCC de PISA para Simplescalar.
+\item \textbf{simpleutils} Herramientas para el compilador que incluyen el ensamblador de PISA, linker, etc. \newline
+\end{itemize}
+
+\subsubsection{Wattch}
+Wattch\cite{WATTCH} es un simulador que estima la potencia consumida de un CPU. Tiene modelos de potencia integrados en Simplescalar y utiliza una version modificada de sim-outorder de Simplescalar para recolectar resultados. \newline
+
+\subsubsection{GCC}
+GNU Compiler Collection o GNU C Compiler es un compilador de C para sistemas operativos GNU. \newline
+
+\subsubsection{Mpeg2 decoder}
+El decodificador viene en un suite que trabaja tanto la parte de codificaci\'{o}n (encode) como la de decodificaci\'{o}n. En nuestro caso, solo vamos a trabajar la parte de decode.
+Dentro del directorio de src/mpeg2dec se encuentra el codigo en C del decoder junto con el Makefile. El archivo principal es mpeg2dec.c y est\'{a} compuesto por las siguientes funciones principales:
+
+\footnotesize \begin{verbatim}
+static void Initialize_Decoder _ANSI_ARGS_((void));
+static int Decode_Bitstream _ANSI_ARGS_((void));
+\end{verbatim}
+\normalsize
+
+La funci\'{o}n de \textit{Decode\_Bitstream} llama a la funci\'{o}n video\_sequence() que se encarga de ir por cada imagen y decodificarlo. \newline
 
 \subsection{Configuraci\'{o}n}
 An\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
@@ -64,9 +93,12 @@ esta aplicaci\'{o}n.  El rendimiento es necesario para permitir una decodificaci
 eficiente, la energ\'{i}a es importante por motivos del costo de consumo de la misma para \
 realizar las decodificaciones.
 
-Funci\'{o} de costo:     F(x) = P(x) * D(x)
+\footnotesize \begin{verbatim}
+Funcion de costo:     F(x) = P(x) * D(x)
 P(x) = Potencia de x (Potencia total consumida por el chip)
 D(x) = Rendimiento IPC del codigo.
+\end{verbatim}
+\normalsize
 
 \subsection{EspacioDiseno}
 Resultados preliminares y Espacio de Dise\~no.
@@ -108,9 +140,15 @@ Conclusiones.
 \section*{Acknowledgment}
 
 \begin{thebibliography}{1}
-
 \bibitem{MPEG2-ENCODER/DECODER}
 MPEG Software Simulation Group, MPEG-2 Encoder/Decoder, Version 1.2, July 19, 1996
+
+\bibitem{SIMPLESCALAR}
+Simplescalar LLC, http://www.simplescalar.com/, 2395 Timbercrest Court Ann Arbor, MI 48105
+
+\bibitem{WATTCH}
+Wattch, http://www.eecs.harvard.edu/~dbrooks/wattch-form.html, Version 1.02d.
+
 \end{thebibliography}
 
 \begin{IEEEbiographynophoto}{Alberto Suarez}
