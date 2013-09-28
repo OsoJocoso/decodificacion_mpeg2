@@ -150,8 +150,6 @@ Las simulaciones se lanzan con el script \textit{./run\_benchmark.sh} que llama 
 
 \subsection{Resultados}
 
-Luego de correr las simulaciones se observa que al reducir el tama\~{n}o de la RUU se obtiene mejor potencia total (m\'{a}s baja). Esto es de imaginar ya que la RUU es una unidad muy utilizada por el algoritmo de decodificaci\'{o}n.
-
 \begin{figure}[!ht]
         \begin{center}
         \includegraphics[width=3in]{fig1.png}
@@ -174,7 +172,15 @@ Luego de correr las simulaciones se observa que al reducir el tama\~{n}o de la R
 \end{figure}
 
 \subsection{An\'{a}lisis de Resultados}
-An\'{a}lisis de resultados: analizar el punto \'{o}ptimo con base al c\'{o}digo del benchmark, comparaci\'{o}n con el sistema de referencia.
+A partir de los resultados se observa que al reducir el tama\~{n}o de la RUU se obtiene mejor potencia total (m\'{a}s baja). Esto es de imaginar ya que el algoritmo de decodificaci\'{o}n de mpeg2 hace bastante uso de de buffers y de operaciones en registros. Al mismo tiempo, al reducir la RUU de 32 a 16, aumenta la cantidad de ciclos necesarios para ejecutar una instrucci\'{o}n (CPI). Noten que este aumento en la CPI
+tiene mayor peso sobre la funci\'{o}n costo que la potencia reducida. En otras palabras, la mejora que se obtuvo en potencia no fue lo suficiente para compensar el incremento en la CPI. Al incrementar la CPI se incrementa tambi\'{e}n
+el tiempo de ejecuci\'{o}n del programa lo cual no es deseable.
+
+El segundo factor que mas influenci\'{o} fue el modo del Branch Predictor, y las variables utilizadas son \textit{2Lev} y \textit{comb} con el \'{u}ltimo siendo el m\'{e}todo por default del compilador. Note con el m\'{e}todo \textit{comb} se produce
+mejores tasas de CPI de forma consistente en comparaci\'{o}n con \textit{2Lev}.
+
+Los cambios en la estrategia de reemplazo de los bloques de la cache y el tamaño del queue de LoadStore no aportan variaciones significativas de la funci\'{o}n costo aunque se observa una ligera mejora en la CPI al utilizar LFU en comparaci\'{o}n con utilizar FIFO. Esto se debe a que el c\'{o}digo hace un uso intensivo de la memoria y las acciones realizadas con estos datos permiten calendarizar otras operaciones entre lecturas de memoria.
+
 
 \section{Conclusiones}
 Conclusiones.
