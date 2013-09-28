@@ -132,18 +132,18 @@ nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van
 A continuaci\'{o}n se muestra las pruebas y su configuracion: \newline
 
 \begin{enumerate}
-\item \textbf{Test 1}.  bpredm=comb, lsq=8, ruu=16, cache=F
-\item \textbf{Test 2}.  bpredm=comb, lsq=8, ruu=32, cache=F
-\item \textbf{Test 3}.  bpredm=comb, lsq=8, ruu=32, cache=L
-\item \textbf{Test 4}.  bpredm=comb, lsq=16, ruu=16, cache=F
-\item \textbf{Test 5}.  bpredm=comb, lsq=16, ruu=32, cache=F
-\item \textbf{Test 6}.  bpredm=comb, lsq=16, ruu=32, cache=L
-\item \textbf{Test 7}.  bpredm=2lev, lsq=8, ruu=16, cache=F
-\item \textbf{Test 8}.  bpredm=2lev, lsq=8, ruu=32, cache=F
-\item \textbf{Test 9}.  bpredm=2lev, lsq=8, ruu=32, cache=L
-\item \textbf{Test 10}. bpredm=2lev, lsq=16, ruu=16, cache=F
-\item \textbf{Test 11}. bpredm=2lev, lsq=16, ruu=32, cache=F
-\item \textbf{Test 12}. bpredm=2lev, lsq=16, ruu=32, cache=L \newline
+\item \textbf{Test 1}.  bpredm=comb, lsq=8, ruu=16, cache=lfu
+\item \textbf{Test 2}.  bpredm=comb, lsq=8, ruu=32, cache=lfu
+\item \textbf{Test 3}.  bpredm=comb, lsq=8, ruu=32, cache=fifo
+\item \textbf{Test 4}.  bpredm=comb, lsq=16, ruu=16, cache=lfu
+\item \textbf{Test 5}.  bpredm=comb, lsq=16, ruu=32, cache=lfu
+\item \textbf{Test 6}.  bpredm=comb, lsq=16, ruu=32, cache=fifo
+\item \textbf{Test 7}.  bpredm=2lev, lsq=8, ruu=16, cache=lfu
+\item \textbf{Test 8}.  bpredm=2lev, lsq=8, ruu=32, cache=lfu
+\item \textbf{Test 9}.  bpredm=2lev, lsq=8, ruu=32, cache=fifo
+\item \textbf{Test 10}. bpredm=2lev, lsq=16, ruu=16, cache=lfu
+\item \textbf{Test 11}. bpredm=2lev, lsq=16, ruu=32, cache=lfu
+\item \textbf{Test 12}. bpredm=2lev, lsq=16, ruu=32, cache=fifo \newline
 \end{enumerate}
 
 Las simulaciones se lanzan con el script \textit{./run\_benchmark.sh} que llama a Wattch junto con el binario cross-compilado de Simplescalar.
