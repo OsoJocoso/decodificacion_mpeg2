@@ -46,6 +46,9 @@ Herramientas utilizadas para la simulaci\'{o}n.
 \subsection{Configuraci\'{o}n}
 An\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
 
+El c\'odigo de decodificaci\'on MPEG2 vemos que contiene en su mayor\'ia contiene variables de tipo integer, punteros y referencias a memoria para procesar los buffers de datos a decodificar. Existen apenas tres variables de tipo double, y se ejecutan unas cuantas operaciones con las mismas.  El codigo se basa en llamadas a funciones y luego a otras cuantas mas logrando cerca de unos 5 niveles de anidaci\'on de las llamadas, lo cual representan saltos multiples que pueden afectar el IPC.
+Dedido a la muy poca utilizaci\'on de doubles se espera una poca utilizaci\'on de ALUs de punto flotante. \newline
+
 \subsection{Simulaciones a realizar}
 C\'{a}lculo de la cantidad total de simulaciones a realizar.
 Las simulaciones preliminares nos dan un estimado de 279 segundos para correr cada simulaci\'{o}n, \
@@ -64,6 +67,10 @@ realizar las decodificaciones.
 Funci\'{o} de costo:     F(x) = P(x) * D(x)
 P(x) = Potencia de x (Potencia total consumida por el chip)
 D(x) = Rendimiento IPC del codigo.
+
+\subsection{EspacioDiseno}
+Resultados preliminares y Espacio de Dise\~no.
+
 
 \subsection{Resultados}
 Resultados obtenidos.
