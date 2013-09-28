@@ -5,7 +5,7 @@
 \else
   \usepackage[dvips]{graphicx}
 \fi
-
+\usepackage{float}
 % *** MATH PACKAGES ***
 \usepackage[cmex10]{amsmath}
 
@@ -31,7 +31,7 @@ Decodificaci\'{o}n, mpeg2, Benchmark
 \end{IEEEkeywords}
 
 \section{Introducci\'{o}n}
-\IEEEPARstart{E}{l} prop\'{o}sito de este paper es analizar varios aspectos de rendimiento que tiene un programa de decodificaci\'{o}n de mpeg2 tales como consumo de potencia, desempeño de la CPU, tiempo de ejecuci\'{o}n, etc. 
+\IEEEPARstart{E}{l} prop\'{o}sito de este paper es analizar varios aspectos de rendimiento que tiene un programa de decodificaci\'{o}n de mpeg2 tales como consumo de potencia, desempe\~{n}o de la CPU, tiempo de ejecuci\'{o}n, etc. 
 Para poder hablar sobre esos aspectos, es importante primero entender qu\'{e} es la decodificaci\'{o}n de mpeg2 y c\'{o}mo se realiza. Para esto se analizar\'{a} los c\'{o}digos fuentes que  Posteriormente se detallar\'{a} las pruebas que se van a realizar y el testbench sobre la cual se realizar\'{a} las pruebas. Luego que har\'{a} el an\'{a}lisis de resultados y finalmente las conclusiones que se pueden derivar de estos experimentos.
 
 
@@ -73,16 +73,10 @@ static int Decode_Bitstream _ANSI_ARGS_((void));
 La funci\'{o}n de \textit{Decode\_Bitstream} llama a la funci\'{o}n video\_sequence() que se encarga de ir por cada imagen y decodificarlo. \newline
 
 \subsection{Configuraci\'{o}n}
-An\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
+En esta secci\'{o}n se va a hace un an\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
 
 El c\'odigo de decodificaci\'on MPEG2 vemos que contiene en su mayor\'ia contiene variables de tipo integer, punteros y referencias a memoria para procesar los buffers de datos a decodificar. Existen apenas tres variables de tipo double, y se ejecutan unas cuantas operaciones con las mismas.  El codigo se basa en llamadas a funciones y luego a otras cuantas mas logrando cerca de unos 5 niveles de anidaci\'on de las llamadas, lo cual representan saltos multiples que pueden afectar el IPC.
 Dedido a la muy poca utilizaci\'on de doubles se espera una poca utilizaci\'on de ALUs de punto flotante. \newline
-
-\subsection{Simulaciones a realizar}
-C\'{a}lculo de la cantidad total de simulaciones a realizar.
-Las simulaciones preliminares nos dan un estimado de 279 segundos para correr cada simulaci\'{o}n, \
-lo cual corresponde aproximadamente a 4 minutos.  En un lapso de 45 minutos teoricamente se pueden correr alrededor de 11 simulaciones.
-
 
 \subsection{Funci\'{o}n Costo}
 Definici\'{o}n de la funci\'{o}n costo.
@@ -102,36 +96,82 @@ D(x) = Rendimiento IPC del codigo.
 
 \subsection{EspacioDiseno}
 Resultados preliminares y Espacio de Dise\~no.
-De la primer corrida obtenemos los siguientes datos:
+De la primer corrida obtenemos los siguientes datos: \newline
 \footnotesize \begin{verbatim}
 Total Power Consumption: 56.2826
-sim_IPC                      1.8649 # instructions per cycle
-sim_CPI                      0.5362 # cycles per instruction
-il1.misses                   277707 # total number of misses
-dl1.misses                    96318 # total number of misses
-ul2.misses                    20691 # total number of misses
-itlb.misses                      32 # total number of misses
-dtlb.misses                     114 # total number of misses
-il1.hits                  178888369 # total number of hits
-dl1.hits                   32954311 # total number of hits
-ul2.hits                     384866 # total number of hits
-itlb.hits                 179166044 # total number of hits
-dtlb.hits                  33333723 # total number of hits
-il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
-dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
-ul2.miss_rate                0.0510 # miss rate (i.e., misses/ref)
-itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
-dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+sim_IPC         1.8649 # instructions per cycle
+sim_CPI         0.5362 # cycles per instruction
+il1.misses      277707 # total number of misses
+dl1.misses      96318 # total number of misses
+ul2.misses      20691 # total number of misses
+itlb.misses     32 # total number of misses
+dtlb.misses     114 # total number of misses
+il1.hits        178888369 # total number of hits
+dl1.hits        32954311 # total number of hits
+ul2.hits        384866 # total number of hits
+itlb.hit        179166044 # total number of hits
+dtlb.hits       33333723 # total number of hits
+il1.miss_rate   0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate   0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate   0.0510 # miss rate (i.e., misses/ref)
+itlb.miss_rate  0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate  0.0000 # miss rate (i.e., misses/ref)
 \end{verbatim}
 \normalsize
 
 Se aprecia que la cantidad de cache misses es muy peque\~na en comparaci\'on con los hits, todos lo miss rates son menores o iguales al 5 por ciento, dada esta caracter\'istica no nos vamos a enfocar en tratart de mejorar el hit rate de las caches, sino en intentar otras configuraciones para intertar bajar la potencia total y el CPI.
-Dado que son pocas las iteraciones que se pueden correr en un lapso de 45 minutos, nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van a probar 12 combinaciones posibles.  Dada la cantidad de saltos se opta por variar las politicas del branch predictor, la configuracion por default ya cuenta con suficientes ALUs para integers por lo que no vamos a intentar variar este componente.  Como se trabaja mucho con datos de memoria y punteros tambien se opta por variar los componenetes para actualizar los registros as\'i como el tama\~no del queue para los Loads y Stores.
+Dada la cantidad de saltos se opta por variar las politicas del branch predictor, la configuracion por default ya cuenta con suficientes ALUs para integers por lo que no vamos a intentar variar este componente.  Como se trabaja mucho con datos de memoria y punteros tambien se opta por variar los componenetes para actualizar los registros as\'i como el tama\~no del queue para los Loads y Stores.
 
-Nuestro espacio de dise\~no va a ser entonces: branch preditor, el register update unit (RUU) size, load/store queue (LSQ) size, y la politica de reemplazo de bloques en las memorias cache.
+Nuestro espacio de dise\~no va a ser entonces: branch preditor, el register update unit (RUU) size, load/store queue (LSQ) size, y la politica de reemplazo de bloques en las memorias cache(FIFO, LFU).
+
+\subsection{Simulaciones a realizar}
+C\'{a}lculo de la cantidad total de simulaciones a realizar.
+Las simulaciones preliminares nos dan un estimado de 279 segundos para correr cada simulaci\'{o}n, \
+lo cual corresponde aproximadamente a 4 minutos.  En un lapso de 45 minutos teoricamente se pueden correr alrededor de 11 simulaciones. Dado que son pocas las iteraciones que se pueden correr en un lapso de 45 minutos,
+nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van a probar 12 combinaciones posibles.
+A continuaci\'{o}n se muestra las pruebas y su configuracion: \newline
+
+\begin{enumerate}
+\item \textbf{Test 1}.  bpredm=comb, lsq=8, ruu=16, cache=F
+\item \textbf{Test 2}.  bpredm=comb, lsq=8, ruu=32, cache=F
+\item \textbf{Test 3}.  bpredm=comb, lsq=8, ruu=32, cache=L
+\item \textbf{Test 4}.  bpredm=comb, lsq=16, ruu=16, cache=F
+\item \textbf{Test 5}.  bpredm=comb, lsq=16, ruu=32, cache=F
+\item \textbf{Test 6}.  bpredm=comb, lsq=16, ruu=32, cache=L
+\item \textbf{Test 7}.  bpredm=2lev, lsq=8, ruu=16, cache=F
+\item \textbf{Test 8}.  bpredm=2lev, lsq=8, ruu=32, cache=F
+\item \textbf{Test 9}.  bpredm=2lev, lsq=8, ruu=32, cache=L
+\item \textbf{Test 10}. bpredm=2lev, lsq=16, ruu=16, cache=F
+\item \textbf{Test 11}. bpredm=2lev, lsq=16, ruu=32, cache=F
+\item \textbf{Test 12}. bpredm=2lev, lsq=16, ruu=32, cache=L \newline
+\end{enumerate}
+
+Las simulaciones se lanzan con el script \textit{./run\_benchmark.sh} que llama a Wattch junto con el binario cross-compilado de Simplescalar.
 
 \subsection{Resultados}
-Resultados obtenidos.
+
+Luego de correr las simulaciones se observa que al reducir el tama\~{n}o de la RUU se obtiene mejor potencia total (m\'{a}s baja). Esto es de imaginar ya que la RUU es una unidad muy utilizada por el algoritmo de decodificaci\'{o}n.
+
+\begin{figure}[!ht]
+        \begin{center}
+        \includegraphics[width=3in]{fig1.png}
+        \caption{Resultados de Potencia total}
+        \end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+        \begin{center}
+        \includegraphics[width=3in]{fig2.png}
+        \caption{Resultados de IPC}
+        \end{center}
+\end{figure}
+
+\begin{figure}[!ht]
+        \begin{center}
+        \includegraphics[width=3in]{fig3.png}
+        \caption{Gr\'{a}fica de Funci\'{o}n Costo}
+        \end{center}
+\end{figure}
 
 \subsection{An\'{a}lisis de Resultados}
 An\'{a}lisis de resultados: analizar el punto \'{o}ptimo con base al c\'{o}digo del benchmark, comparaci\'{o}n con el sistema de referencia.
