@@ -1,0 +1,241 @@
+Data collection for MPEG2 experiment
+
+Data for run 1, -bpred comb -res:fpalu 1 -lsq:size 8 -ruu:size 16 cache mode l
+Total Power Consumption: 56.2826
+sim_IPC                      1.8649 # instructions per cycle
+sim_CPI                      0.5362 # cycles per instruction
+il1.misses                   277707 # total number of misses
+dl1.misses                    96318 # total number of misses
+ul2.misses                    20691 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  178888369 # total number of hits
+dl1.hits                   32954311 # total number of hits
+ul2.hits                     384866 # total number of hits
+itlb.hits                 179166044 # total number of hits
+dtlb.hits                  33333723 # total number of hits
+il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0510 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 2, -bpred comb -res:fpalu 1 -lsq:size 8 -ruu:size 32 cache mode l
+Total Power Consumption: 59.8057
+sim_IPC                      2.4839 # instructions per cycle
+sim_CPI                      0.4026 # cycles per instruction
+il1.misses                   277491 # total number of misses
+dl1.misses                    97240 # total number of misses
+ul2.misses                    20685 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  182913091 # total number of hits
+dl1.hits                   32467249 # total number of hits
+ul2.hits                     385520 # total number of hits
+itlb.hits                 183190550 # total number of hits
+dtlb.hits                  33567350 # total number of hits
+il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0030 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0509 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 3, -bpred comb -res:fpalu 1 -lsq:size 8 -ruu:size 32  cache mode f
+Total Power Consumption: 59.8057
+sim_IPC                      2.4828 # instructions per cycle
+sim_CPI                      0.4028 # cycles per instruction
+il1.misses                   277460 # total number of misses
+dl1.misses                   113041 # total number of misses
+ul2.misses                    21019 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  182910611 # total number of hits
+dl1.hits                   32450648 # total number of hits
+ul2.hits                     414694 # total number of hits
+itlb.hits                 183188039 # total number of hits
+dtlb.hits                  33566497 # total number of hits
+il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0035 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0482 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 4, -bpred comb -res:fpalu 1 -lsq:size 16 -ruu:size 16 cache mode l
+Total Power Consumption: 56.6787
+sim_IPC                      1.8668 # instructions per cycle
+sim_CPI                      0.5357 # cycles per instruction
+il1.misses                   277803 # total number of misses
+dl1.misses                    96312 # total number of misses
+ul2.misses                    20693 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  178880999 # total number of hits
+dl1.hits                   32954755 # total number of hits
+ul2.hits                     384949 # total number of hits
+itlb.hits                 179158770 # total number of hits
+dtlb.hits                  33342266 # total number of hits
+il1.miss_rate                0.0016 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0510 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 5, -bpred comb -res:fpalu 1 -lsq:size 16 -ruu:size 32 cache mode l
+Total Power Consumption: 60.2015
+sim_IPC                      2.4954 # instructions per cycle
+sim_CPI                      0.4007 # cycles per instruction
+il1.misses                   278987 # total number of misses
+dl1.misses                    97368 # total number of misses
+ul2.misses                    20700 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  184334567 # total number of hits
+dl1.hits                   32093309 # total number of hits
+ul2.hits                     387174 # total number of hits
+itlb.hits                 184613522 # total number of hits
+dtlb.hits                  33594807 # total number of hits
+il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0030 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0508 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 6, -bpred comb -res:fpalu 1 -lsq:size 16 -ruu:size 32  cache mode f
+Total Power Consumption: 60.2015
+sim_IPC                      2.4949 # instructions per cycle
+sim_CPI                      0.4008 # cycles per instruction
+il1.misses                   278949 # total number of misses
+dl1.misses                   113155 # total number of misses
+ul2.misses                    21003 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  184342534 # total number of hits
+dl1.hits                   32076384 # total number of hits
+ul2.hits                     416269 # total number of hits
+itlb.hits                 184621451 # total number of hits
+dtlb.hits                  33594799 # total number of hits
+il1.miss_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0035 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0480 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 7, -bpred 2lev -res:fpalu 1 -lsq:size 8 -ruu:size 16 cache mode l
+Total Power Consumption: 56.2826
+sim_IPC                      1.8073 # instructions per cycle
+sim_CPI                      0.5533 # cycles per instruction
+il1.misses                   324466 # total number of misses
+dl1.misses                    95060 # total number of misses
+ul2.misses                    20876 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  181521943 # total number of hits
+dl1.hits                   33039428 # total number of hits
+ul2.hits                     430297 # total number of hits
+itlb.hits                 181846377 # total number of hits
+dtlb.hits                  33418228 # total number of hits
+il1.miss_rate                0.0018 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0463 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 8, -bpred 2lev -res:fpalu 1 -lsq:size 8 -ruu:size 32 cache mode l
+Total Power Consumption: 59.8057
+sim_IPC                      2.2541 # instructions per cycle
+sim_CPI                      0.4436 # cycles per instruction
+il1.misses                   317509 # total number of misses
+dl1.misses                    95453 # total number of misses
+ul2.misses                    20875 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  187905987 # total number of hits
+dl1.hits                   32841975 # total number of hits
+ul2.hits                     423551 # total number of hits
+itlb.hits                 188223464 # total number of hits
+dtlb.hits                  33955996 # total number of hits
+il1.miss_rate                0.0017 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0470 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 9, -bpred 2lev -res:fpalu 1 -lsq:size 8 -ruu:size 32  cache mode f
+Total Power Consumption: 59.8057
+sim_IPC                      2.2531 # instructions per cycle
+sim_CPI                      0.4438 # cycles per instruction
+il1.misses                   317581 # total number of misses
+dl1.misses                   110991 # total number of misses
+ul2.misses                    21300 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  187922427 # total number of hits
+dl1.hits                   32826809 # total number of hits
+ul2.hits                     451770 # total number of hits
+itlb.hits                 188239976 # total number of hits
+dtlb.hits                  33956319 # total number of hits
+il1.miss_rate                0.0017 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0034 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0450 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 10, -bpred 2lev -res:fpalu 1 -lsq:size 16 -ruu:size 16 cache mode l
+Total Power Consumption: 56.6787
+sim_IPC                      1.8094 # instructions per cycle
+sim_CPI                      0.5527 # cycles per instruction
+il1.misses                   325516 # total number of misses
+dl1.misses                    95041 # total number of misses
+ul2.misses                    20877 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  181554747 # total number of hits
+dl1.hits                   33027789 # total number of hits
+ul2.hits                     431326 # total number of hits
+itlb.hits                 181880231 # total number of hits
+dtlb.hits                  33414303 # total number of hits
+il1.miss_rate                0.0018 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0462 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 11, -bpred 2lev -res:fpalu 1 -lsq:size 16 -ruu:size 32 cache mode l
+Total Power Consumption: 60.2015
+sim_IPC                      2.2602 # instructions per cycle
+sim_CPI                      0.4424 # cycles per instruction
+il1.misses                   324194 # total number of misses
+dl1.misses                    95500 # total number of misses
+ul2.misses                    20911 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  188870254 # total number of hits
+dl1.hits                   32503575 # total number of hits
+ul2.hits                     430310 # total number of hits
+itlb.hits                 189194416 # total number of hits
+dtlb.hits                  33993946 # total number of hits
+il1.miss_rate                0.0017 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0463 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+
+Data for run 12, -bpred 2lev -res:fpalu 1 -lsq:size 16 -ruu:size 32  cache mode f
+Total Power Consumption: 60.2015
+sim_IPC                      2.2593 # instructions per cycle
+sim_CPI                      0.4426 # cycles per instruction
+il1.misses                   324086 # total number of misses
+dl1.misses                   110879 # total number of misses
+ul2.misses                    21357 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  188897538 # total number of hits
+dl1.hits                   32487800 # total number of hits
+ul2.hits                     457944 # total number of hits
+itlb.hits                 189221592 # total number of hits
+dtlb.hits                  33994856 # total number of hits
+il1.miss_rate                0.0017 # miss rate (i.e., misses/ref)
+dl1.miss_rate                0.0034 # miss rate (i.e., misses/ref)
+ul2.miss_rate                0.0446 # miss rate (i.e., misses/ref)
+itlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss_rate               0.0000 # miss rate (i.e., misses/ref)
