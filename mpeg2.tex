@@ -70,7 +70,30 @@ D(x) = Rendimiento IPC del codigo.
 
 \subsection{EspacioDiseno}
 Resultados preliminares y Espacio de Dise\~no.
+De la primer corrida obtenemos los siguientes datos:
+Total Power Consumption: 56.2826
+sim\_IPC                      1.8649 # instructions per cycle
+sim\_CPI                      0.5362 # cycles per instruction
+il1.misses                   277707 # total number of misses
+dl1.misses                    96318 # total number of misses
+ul2.misses                    20691 # total number of misses
+itlb.misses                      32 # total number of misses
+dtlb.misses                     114 # total number of misses
+il1.hits                  178888369 # total number of hits
+dl1.hits                   32954311 # total number of hits
+ul2.hits                     384866 # total number of hits
+itlb.hits                 179166044 # total number of hits
+dtlb.hits                  33333723 # total number of hits
+il1.miss\_rate                0.0015 # miss rate (i.e., misses/ref)
+dl1.miss\_rate                0.0029 # miss rate (i.e., misses/ref)
+ul2.miss\_rate                0.0510 # miss rate (i.e., misses/ref)
+itlb.miss\_rate               0.0000 # miss rate (i.e., misses/ref)
+dtlb.miss\_rate               0.0000 # miss rate (i.e., misses/ref)
 
+Se aprecia que la cantidad de cache misses es muy peque\~na en comparaci\'on con los hits, todos lo miss rates son menores o iguales al 5 por ciento, dada esta caracter\'istica no nos vamos a enfocar en tratart de mejorar el hit rate de las caches, sino en intentar otras configuraciones para intertar bajar la potencia total y el CPI.
+Dado que son pocas las iteraciones que se pueden correr en un lapso de 45 minutos, nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van a probar 12 combinaciones posibles.  Dada la cantidad de saltos se opta por variar las politicas del branch predictor, la configuracion por default ya cuenta con suficientes ALUs para integers por lo que no vamos a intentar variar este componente.  Como se trabaja mucho con datos de memoria y punteros tambien se opta por variar los componenetes para actualizar los registros as\'i como el tama\~no del queue para los Loads y Stores.
+
+Nuestro espacio de dise\~no va a ser entonces: branch preditor, el register update unit (RUU) size, load/store queue (LSQ) size, y la politica de reemplazo de bloques en las memorias cache.
 
 \subsection{Resultados}
 Resultados obtenidos.
@@ -83,9 +106,6 @@ Conclusiones.
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
-
-
-El autor desea agradecer a la profesora Cristina Murillo por ser tan linda ;)
 
 \begin{thebibliography}{1}
 
