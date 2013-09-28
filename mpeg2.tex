@@ -86,8 +86,13 @@ La funci\'{o}n de \textit{Decode\_Bitstream} llama a la funci\'{o}n video\_seque
 \subsection{Configuraci\'{o}n}
 En esta secci\'{o}n se va a hace un an\'{a}lisis preliminar de la configuraci\'{o}n de la arquitectura (sistema de referencia a utilizar).
 
-El c\'odigo de decodificaci\'on MPEG2 vemos que contiene en su mayor\'ia contiene variables de tipo integer, punteros y referencias a memoria para procesar los buffers de datos a decodificar. Existen apenas tres variables de tipo double, y se ejecutan unas cuantas operaciones con las mismas.  El codigo se basa en llamadas a funciones y luego a otras cuantas mas logrando cerca de unos 5 niveles de anidaci\'on de las llamadas, lo cual representan saltos multiples que pueden afectar el IPC.
-Dedido a la muy poca utilizaci\'on de doubles se espera una poca utilizaci\'on de ALUs de punto flotante. \newline
+El c\'odigo de decodificaci\'on MPEG2 vemos que en su mayor\'ia contiene variables de tipo integer, \
+punteros y referencias a memoria para procesar los buffers de datos a decodificar. Existen apenas \
+tres variables de tipo double, y se ejecutan unas cuantas operaciones con las mismas.  El codigo se \
+basa en llamadas a funciones y luego a otras cuantas mas logrando cerca de unos 5 niveles de \
+anidaci\'on de las llamadas, lo cual representan saltos multiples que pueden afectar el IPC. \
+Dedido a la muy poca utilizaci\'on de doubles se espera una poca utilizaci\'on de ALUs de punto flotante. \newline 
+Ademas de la poca utilizaci\'on de unidades de punto flotante, no se determina algun otro punto crusial en la architectura, por lo cual solamente se modificar\'a las ALUs de FP en la architectura que por default nos brinda WATT.  La misma se presenta a continuaci\'on.
 
 \subsection{Funci\'{o}n Costo}
 Definici\'{o}n de la funci\'{o}n costo.
@@ -105,8 +110,8 @@ D(x) = Rendimiento IPC del codigo.
 \end{verbatim}
 \normalsize
 
-\subsection{EspacioDiseno}
-Resultados preliminares y Espacio de Dise\~no.
+\subsection{Resultados preliminares y Espacio de Dise\~no}
+Para obtener los datos preliminares se ejecuta una primer corride del benchmark on la configuraci\'on de Hardware base seleccionada.
 De la primer corrida obtenemos los siguientes datos: \newline
 \footnotesize \begin{verbatim}
 Total Power Consumption: 56.2826
@@ -141,6 +146,19 @@ Las simulaciones preliminares nos dan un estimado de 279 segundos para correr ca
 lo cual corresponde aproximadamente a 4 minutos.  En un lapso de 45 minutos teoricamente se pueden correr alrededor de 11 simulaciones. Dado que son pocas las iteraciones que se pueden correr en un lapso de 45 minutos,
 nos tenemos que limitar a correr 12 simulaciones, lo que implica que solo se van a probar 12 combinaciones posibles.
 A continuaci\'{o}n se muestra las pruebas y su configuracion: \newline
+
+Configuraci\'on base:
+bpred           comb
+ruu:size        16
+lsq:size        8
+cache:dl1       dl1:128:32:4:l
+cache:dl2       ul2:1024:64:4:l
+cache:il1       il1:512:32:1:l
+cache:il2       dl2
+res:ialu        4
+res:imult       1
+res:fpalu       1
+res:fpmult      1
 
 \begin{enumerate}
 \item \textbf{Test 1}.  bpredm=comb, lsq=8, ruu=16, cache=lfu
@@ -198,7 +216,7 @@ El par\'ametro de arquitectura mas significativo es el RUU.
 
 El segundo par\'ametro encontrado con mayor incidencia es el modo del branch predictor.
 
-Configuraci\'on optima:
+Configuraci\'on \'optima:
 bpred           comb
 ruu:size        32
 lsq:size        8
